@@ -54,7 +54,7 @@ class Teaches(models.Model):
         null=False,
         blank=False
     )
-    c_class models.ForeignKey(
+    c_class = models.ForeignKey(
         c_class,
         null=False,
         blank=False
