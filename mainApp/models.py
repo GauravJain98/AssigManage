@@ -24,6 +24,7 @@ class c_class(models.Model):
         Branch,
         null=False,
         blank = False,
+        on_delete = models.CASCADE
     )
     year = models.CharField(max_length=4,null=False,blank=False)
 
@@ -47,17 +48,20 @@ class Teaches(models.Model):
     teacher =  models.ForeignKey(
         Teacher,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
     subject = models.ForeignKey(
         Subject,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
     c_class = models.ForeignKey(
         c_class,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
 
 class Student(models.Model):
@@ -71,7 +75,8 @@ class Student(models.Model):
     c_class = models.ForeignKey(
         c_class,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
 
 class Assignment(models.Model):
@@ -81,12 +86,14 @@ class Assignment(models.Model):
     c_class = models.ForeignKey(
         c_class,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
     teaches = models.ForeignKey(
         Teaches,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
 
 class Submission(models.Model):
@@ -95,10 +102,12 @@ class Submission(models.Model):
     student = models.ForeignKey(
         Student,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
-    assigment = models.ForeignKey(
-        Assigment,
+    assignment = models.ForeignKey(
+        Assignment,
         null=False,
-        blank=False
+        blank=False,
+        on_delete = models.CASCADE
     )
