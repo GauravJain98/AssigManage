@@ -49,21 +49,21 @@ class Teaches(models.Model):
         Teacher,
         null=False,
         blank=False,
-        on_delete = models.CASCADE
+        on_delete = models.CASCADE,
         related_name="taught_by"
     )
     subject = models.ForeignKey(
         Subject,
         null=False,
         blank=False,
-        on_delete = models.CASCADE
+        on_delete = models.CASCADE,
         related_name="taught"
     )
     c_class = models.ForeignKey(
         c_class,
         null=False,
         blank=False,
-        on_delete = models.CASCADE        related_name="submission"
+        on_delete = models.CASCADE,
         related_name="is_taught"
     )
 
