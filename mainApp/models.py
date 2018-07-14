@@ -14,7 +14,7 @@ class Branch(models.Model):
     #DO NOT CONNECT SYLLABUS TO BRANCH BUT TO C_CLASS
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    branch = models.CharField(max_length=20,null=False,blank=False)
+    name = models.CharField(max_length=20,null=False,blank=False)
     
 
 class c_class(models.Model):

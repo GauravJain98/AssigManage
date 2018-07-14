@@ -39,7 +39,7 @@ class Custom_UserSerializer(serializers.ModelSerializer):
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = ('id','created_at','updated_at','branch')
+        fields = ('id','created_at','updated_at','name')
         read_only_fields = ('created_at','updated_at')
 
 class c_classSerializer(serializers.ModelSerializer):
