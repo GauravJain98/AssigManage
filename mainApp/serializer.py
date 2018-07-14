@@ -26,33 +26,33 @@ class Custom_UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Custom_User
-        fields = ['id', 'user',]
+        fields = ['id','id', 'user',]
 
     def create(self, validated_data):
         user_data = validated_data.pop('user')
 
         user = UserSerializer.create(UserSerializer(), validated_data=user_data)
 
-        custom_user, created = Custom_User.objects.update_or_create(user=user,address=address, **validated_data)
+        custom_user = Custom_User.objects.create(user=user, **validated_data)
         return custom_user
 
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = ('created_at','updated_at','branch')
+        fields = ('id','created_at','updated_at','branch')
         read_only_fields = ('created_at','updated_at')
 
 class c_classSerializer(serializers.ModelSerializer):
     class Meta:
         model = c_class
-        fields = ('created_at','updated_at','branch','year')
+        fields = ('id','created_at','updated_at','branch','year')
         read_only_fields = ('created_at','updated_at')
 
 class TeacherSerializer(serializers.ModelSerializer):
     user = Custom_UserSerializer(required = True)
     class Meta:
         model = Teacher
-        fields = ['created_at','updated_at','user']
+        fields = ['id','created_at','updated_at','user']
         read_only_fields = ('created_at','updated_at')
 
     def create(self, validated_data):
@@ -64,15 +64,16 @@ class TeacherSerializer(serializers.ModelSerializer):
 class SubjectSerializer(serializers.ModelSerializer):
     class Meta:
         model = Subject
-        fields = ['created_at','updated_at','name','code']
+        fields = ['id','created_at','updated_at','name','code']
         read_only_fields = ('created_at','updated_at')
 
 class TeachesClassSerializer(serializers.ModelSerializer):
     c_class = c_classSerializer(read_only=True)
     teacher = serializers.PrimaryKeyRelatedField(many=False, queryset=Teacher.objects.all())
+    subject = SubjectSerializer(read_only=True)
     class Meta:
-        model = Teacher
-        fields = ['created_at','updated_at','name','code','teacher','c_class']
+        model = Teaches
+        fields = ['id','created_at','updated_at','teacher','c_class','subject']
         read_only_fields = ('created_at','updated_at')
 
     def create(self, validated_data):
@@ -81,9 +82,10 @@ class TeachesClassSerializer(serializers.ModelSerializer):
 class TeachesTeacherSerializer(serializers.ModelSerializer):
     c_class = serializers.PrimaryKeyRelatedField(many=False, queryset=c_class.objects.all())
     teacher = TeacherSerializer(read_only=True)
+    subject = SubjectSerializer(read_only=True)
     class Meta:
-        model = Teacher
-        fields = ['created_at','updated_at','name','code','teacher','c_class']
+        model = Teaches
+        fields = ['id','created_at','updated_at','teacher','c_class','subject']
         read_only_fields = ('created_at','updated_at')
 
     def create(self, validated_data):
@@ -92,9 +94,10 @@ class TeachesTeacherSerializer(serializers.ModelSerializer):
 class TeachesAddSerializer(serializers.ModelSerializer):
     c_class = serializers.PrimaryKeyRelatedField(many=False, queryset=c_class.objects.all())
     teacher = serializers.PrimaryKeyRelatedField(many=False, queryset=Teacher.objects.all())
+    subject = serializers.PrimaryKeyRelatedField(many=False, queryset=Subject.objects.all())
     class Meta:
-        model = Teacher
-        fields = ['created_at','updated_at','name','code','c_class','teacher']
+        model = Teaches
+        fields = ['id','created_at','updated_at','teacher','c_class','subject']
         read_only_fields = ('created_at','updated_at')
 
 class StudentSerializer(serializers.ModelSerializer):
@@ -102,7 +105,7 @@ class StudentSerializer(serializers.ModelSerializer):
     user = Custom_UserSerializer(read_only=True)
     class Meta:
         model = Teacher
-        fields = ['created_at','updated_at','user','c_class']
+        fields = ['id','created_at','updated_at','user','c_class']
         read_only_fields = ('created_at','updated_at')
 
     def create(self, validated_data):
@@ -113,7 +116,7 @@ class StudentAddSerializer(serializers.ModelSerializer):
     user = Custom_UserSerializer()
     class Meta:
         model = Teacher
-        fields = ['created_at','updated_at','user','c_class']
+        fields = ['id','created_at','updated_at','user','c_class']
         read_only_fields = ('created_at','updated_at')
 
     def create(self, validated_data):
@@ -124,16 +127,16 @@ class StudentAddSerializer(serializers.ModelSerializer):
 
 class AssignmentSerializer(serializers.ModelSerializer):
     c_class = serializers.PrimaryKeyRelatedField(many=False, queryset=c_class.objects.all())
-    teaches = TeachesAddSerializer(read_only=True)
+    teaches = serializers.PrimaryKeyRelatedField(many=False, queryset=Teaches.objects.all())
     class Meta:
-        model = Teacher
-        fields = ['created_at','updated_at','user','rollno','c_class']
+        model = Assignment
+        fields = ['id','created_at','updated_at','teaches','c_class','deadline','description']
         read_only_fields = ('created_at','updated_at')
 
 class SubmissionSerializer(serializers.ModelSerializer):
-    assignment = AssignmentSerializer(read_only=True)
-    student = StudentSerializer(read_only=True)
+    assignment = serializers.PrimaryKeyRelatedField(many=False, queryset=Assignment.objects.all())
+    student = serializers.PrimaryKeyRelatedField(many=False, queryset=Student.objects.all())
     class Meta:
-        model = Teacher
-        fields = ['created_at','updated_at','student','assignment']
+        model = Submission
+        fields = ['id','created_at','updated_at','student','assignment']
         read_only_fields = ('created_at','updated_at')

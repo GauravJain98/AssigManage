@@ -71,7 +71,7 @@ class Student(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     user = models.OneToOneField(
-        User,
+        Custom_User,
         on_delete = models.CASCADE
     )
     rollno = models.CharField(max_length=11,null=False,blank=False)
@@ -85,7 +85,8 @@ class Student(models.Model):
 class Assignment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    deadline = models.DateTimeField(auto_now=True)
+    deadline = models.DateField()
+    description = models.CharField(max_length=100,null=False,blank=False)
     c_class = models.ForeignKey(
         c_class,
         null=False,

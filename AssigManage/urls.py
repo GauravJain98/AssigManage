@@ -12,6 +12,7 @@ router.register(r'teacher', views.TeacherList)
 router.register(r'subject', views.SubjectList)
 
 router.register(r'teaches/teacher', views.TeachesTeacherList)
+router.register(r'teaches/add', views.TeachesAddList)
 router.register(r'teaches/class', views.TeachesClassList)
 router.register(r'student', views.StudentList)
 router.register(r'assignment', views.AssignmentList)

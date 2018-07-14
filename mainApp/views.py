@@ -28,6 +28,10 @@ class TeachesClassList(viewsets.ModelViewSet):
     queryset = Teaches.objects.all()
     serializer_class = TeachesClassSerializer
 
+class TeachesAddList(viewsets.ModelViewSet):
+    queryset = Teaches.objects.all()
+    serializer_class = TeachesAddSerializer
+
 class TeachesTeacherList(viewsets.ModelViewSet):
     queryset = Teaches.objects.all()
     serializer_class = TeachesTeacherSerializer
@@ -35,6 +39,10 @@ class TeachesTeacherList(viewsets.ModelViewSet):
 class StudentList(viewsets.ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+
+class StudentList(viewsets.ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentAddSerializer
 
 class AssignmentList(viewsets.ModelViewSet):
     queryset = Assignment.objects.all()
