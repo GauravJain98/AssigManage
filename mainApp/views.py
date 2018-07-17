@@ -5,8 +5,15 @@ from rest_framework import viewsets, permissions
 from rest_framework.decorators import api_view
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User, Group
-
+from django.http import HttpResponse
+from .models import *
 # Create your views here.
+
+def exp(request):
+    teches =Teacher.objects.prefetch_related('taught_by').filter(id=1)
+    print(teches)
+    print("wtf")
+    return Response({})
 
 class BranchList(viewsets.ModelViewSet):
     queryset = Branch.objects.all()
