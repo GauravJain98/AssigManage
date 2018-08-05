@@ -4,7 +4,8 @@ Assigment Management System API
 
 This will be used so that teachers can easily co-ordinate there assignments for each class.
 
-##To run this 
+## To run this 
+
 if in virtual enviorment
 ```bash
 
