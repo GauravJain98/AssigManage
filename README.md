@@ -6,7 +6,7 @@ This will be used so that teachers can easily co-ordinate there assignments for 
 
 ## To run this 
 
-if in virtual enviorment of any kind eg venv,virtualenv etc (prefered) (https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
+if in virtual enviorment of any kind eg venv,virtualenv etc (prefered) [click if want to learn how to make one](https://uoa-eresearch.github.io/eresearch-cookbook/recipe/2014/11/26/python-virtual-env/)
 ```bash
 
 pip install -r requirements.txt
