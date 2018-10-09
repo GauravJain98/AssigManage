@@ -25,7 +25,7 @@ python3 manage.py runserver
 
 The website will work on 127.0.0.1:8000/localhost:8000
 
-##list of routes
+## list of routes
 
 ```
 
